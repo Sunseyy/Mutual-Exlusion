@@ -1,2 +1,3 @@
-# Mutual-Exlusion
-Lamport and agrwala algorithm 
+"""
+This project implements distributed mutual exclusion algorithms using gRPC and Protocol Buffers. Two algorithms are included: Lamport's algorithm (in lamport_mutex.py) and Ricart-Agrawala (in ricart_agrawala.py). Each process runs as a gRPC server with its own PID and port and communicates with other processes (peers) to request and release access to a shared critical section (CS). The mutual_exclusion.proto file defines the gRPC services and message formats, which must be compiled using the command: python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. mutual_exclusion.proto. The run_all.py script launches three processes automatically, each with a unique PID and port, simulating a distributed system. The Lamport algorithm uses logical clocks and a request queue, while the Ricart-Agrawala algorithm defers replies based on timestamp priority and waits for permission from all peers before entering the CS. This setup demonstrates coordination and synchronization between distributed nodes without shared memory.
+"""
