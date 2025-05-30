@@ -1,0 +1,27 @@
+// mutual_exclusion.proto
+syntax = "proto3";
+
+package mutex;
+
+service Mutex {
+  rpc Request(RequestMsg) returns (ReplyMsg); // for RA this might return Empty if reply is delayed
+  rpc Reply(ReplyMsg) returns (Empty);        // <-- NEW: used by RA to send async replies
+  rpc Release(ReleaseMsg) returns (Empty);    // still used by Lamport
+}
+
+message RequestMsg {
+  int32 timestamp = 1;
+  int32 pid       = 2;
+  string hostport = 3; // <-- NEW: needed by RA to know where to send a reply later
+}
+
+message ReplyMsg {
+  int32 timestamp = 1;
+  int32 pid       = 2;
+}
+
+message ReleaseMsg {
+  int32 pid = 1;
+}
+
+message Empty {}
